@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="aoyo2:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>aoyo2</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="cat_project-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="aoyo2:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="微软亚洲研究部:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="cat_project-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="微软亚洲研究部:war exploded" />
+    </root>
+  </artifact>
+</component>

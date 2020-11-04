@@ -1,0 +1,49 @@
+#jsp的视图解析器
+spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /jsps/
+
+#开启热部署
+  devtools:
+    restart:
+      enabled: true
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path}
+
+#数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/01?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+#mybatis的配置
+mybatis:
+#1.读取mapping映射文件
+  mapper-locations: classpath:mapper/*.xml
+#2.驼峰命名
+  configuration:
+    map-underscore-to-camel-case: true
+    #3.懒加载
+    #lazy-loading-enabled: true
+    #4.起别名
+  type-aliases-package: spring.pojo
+
+server:
+#修改端口号
+  port: 8080
+
+#jsp的热部署
+  jsp-servlet:
+    init-parameters:
+      development: true
+#打印SQL语句
+logging:
+  level:
+    cn:
+      hjl:
+        springboot:
+          dao: debug
