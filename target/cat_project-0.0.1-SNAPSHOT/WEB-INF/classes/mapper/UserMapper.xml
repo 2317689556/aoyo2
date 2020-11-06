@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring.dao.UserMapper">
+    <select id="NovelShow" resultType="Fangwu">
+        SELECT * FROM address GROUP BY money
+    </select>
+
+    <!--    菜单栏查询-->
+    <select id="listMenu" resultType="AoyoMenu">
+        select * from sys_menu
+    </select>
+    <!--    登录-->
+    <select id="login" resultType="SysUser">
+        select * from sys_user
+        <where>
+            <if test="userName!='' and userName!=null">
+                  user_name=#{userName}
+            </if>
+            <if test="userPwd!='' and userPwd!=null">
+                and user_pwd=#{userPwd}
+            </if>
+        </where>
+    </select>
+</mapper>

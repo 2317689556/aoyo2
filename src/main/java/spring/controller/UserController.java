@@ -81,6 +81,7 @@ public class UserController {
     @RequestMapping("/listMenu")
     public List<AoyoMenu> listMenu() {
         List<AoyoMenu> rootMenus = userService.queryMenuList();
+        System.out.println(rootMenus);
         List<AoyoMenu> list = getMenuList(rootMenus);
         return list;
     }

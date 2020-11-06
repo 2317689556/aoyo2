@@ -91,7 +91,20 @@
         function b2(){
 
             if(bl()!=false){
-                location.href="http://localhost:8080/jsps/index.jsp";
+                $.ajax({
+                    url: "/user/login",
+                    type: "post",
+                    data:{userName:$("#user").val(),userPwd:$("#password").val()},
+                    dataType: "json",
+                    success: function (data) {
+                        if(data){
+                            location.href="http://localhost:8080/jsps/index.jsp";
+                        }else {
+                            setError(user,"该用户不存在");
+                            return false;
+                        }
+                    }
+                })
             }
 
 
@@ -147,9 +160,11 @@
         $("#authImg").click(function () {
             $(this).attr("src","/user/autoImage?date=" + new Date());
         });
+        var q=0;
         //校验码的验证
         $("#codestext").blur(function () {
             var _that=$(this);
+            var _this=this;
             if(($(this).val())!=''){
                 $.ajax({
                     type:"post",
@@ -161,11 +176,14 @@
                     error:function(error){
                         setError(_that,"校验码不正确!");
                         return false;
+                        q=1;
                     },success:function(data){
                         if(data){
                             setOk(_that);
+                            q=0;
                         }else{
                             setError(_that,"校验码不正确!");
+                            q=1;
                             return false;
                         }
                     }
@@ -228,23 +246,36 @@
             }
 
             var _that=$("#codestext");
-            if($("#codestext").val()!=''){
-                $.ajax({
-                    type:"post",
-                    url:"/user/checkCodestext",
-                    data:{
-                        "codestext":$("#codestext").val()
-                    },
-                    dataType:"json",
-                    error:function(error){
-                        setError(_that,"校验码不正确!");
-                    },success:function(data){
-                        if(data){
-                            setOk(_that);
+                if((_that.val())!=''){
+                    $.ajax({
+                        type:"post",
+                        url:"/user/checkCodestext",
+                        data:{
+                            "codestext":_that.val()
+                        },
+                        dataType:"json",
+                        error:function(error){
+                            q=1;
                             setError(_that,"校验码不正确!");
+                            return false;
+                        },success:function(data){
+                            if(data){
+                                setOk(_that);
+                                q=0;
+
+                            }else{
+                                q=1;
+                                setError(_that,"校验码不正确!");
+                                return false;
+                            }
+
                         }
+
+
+                    });
+                    if(q==1){
+                        return false;
                     }
-                });
             }else{
                 setError(_that,"校验码不能为空!");
                 return false;
